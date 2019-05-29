@@ -1,6 +1,10 @@
 /* eslint consistent-return:0 import/order:0 */
 
 const express = require('express');
+const cors = require('cors');
+const app = express();
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const logger = require('./logger');
 
 const argv = require('./argv');
@@ -12,13 +16,25 @@ const ngrok =
     ? require('ngrok')
     : false;
 const { resolve } = require('path');
-const app = express();
+
 const router = require('./routes/strings');
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(morgan('tiny'));
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // app.use('/api', myApi);
 
 app.use('/api/strings', router);
+
+// 404 Not Found error handler
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
+  err.status = 404;
+  return next(err);
+});
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
