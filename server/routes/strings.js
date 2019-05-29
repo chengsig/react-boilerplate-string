@@ -1,7 +1,5 @@
 /** API routes for strings. */
 const express = require('express');
-// const bodyParser = require('body-parser');
-// const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const db = require('../db');
 
 const router = new express.Router();
@@ -20,7 +18,6 @@ router.get('/', async (req, res, next) => {
 // POST a string
 router.post('/', async (req, res, next) => {
   try {
-      console.log('what is body', req.body)
     const result = await db.query(
       `INSERT INTO strings (body)
                 VALUES ($1)

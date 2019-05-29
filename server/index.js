@@ -29,13 +29,6 @@ app.use(morgan('tiny'));
 
 app.use('/api/strings', router);
 
-// 404 Not Found error handler
-app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  return next(err);
-});
-
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
   outputPath: resolve(process.cwd(), 'build'),
