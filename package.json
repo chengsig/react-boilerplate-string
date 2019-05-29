@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "7.4.3",
+    "axios": "^0.18.0",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "compression": "1.7.4",
@@ -94,11 +95,13 @@
     "redux-saga": "1.0.2",
     "reselect": "4.0.0",
     "sanitize.css": "8.0.0",
-    "styled-components": "4.2.0"
+    "styled-components": "4.2.0",
+    "utils": "^0.3.1"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
     "@babel/core": "7.4.3",
+    "@babel/helper-plugin-utils": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "7.4.0",
     "@babel/plugin-syntax-dynamic-import": "7.2.0",
     "@babel/plugin-transform-modules-commonjs": "7.4.3",

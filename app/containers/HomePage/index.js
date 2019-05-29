@@ -2,31 +2,71 @@
  * HomePage
  *
  * This is the first thing users see of our App, at the '/' route
- *
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
-import StringList from 'containers/StringList/Loadable';
-import messages from './messages';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
+import { useInjectSaga } from 'utils/injectSaga';
+import {
+  makeSelectStrings,
+  makeSelectLoading,
+  makeSelectError,
+} from 'containers/App/selectors';
+import StringList from 'components/StringsList';
+import { loadStrings } from '../App/actions';
+import saga from './saga';
 
-export default function HomePage() {
+const key = 'home';
+
+export function HomePage({ loading, error, strings }) {
+  useInjectSaga({ key, saga });
+
+  const stringsListProps = {
+    loading,
+    error,
+    strings,
+  };
+
   return (
-    <h1>
-      <FormattedMessage {...messages.header} />
-      <nav>
-        <div className="navBar">
-          <h1 id="strings">Strings App</h1><br/>
-          <p id="addString">
-            <NavLink exact to="/add">
-              Add String
-            </NavLink>
-          </p>
-        </div>
-      </nav>
-      <StringList />
-    </h1>
+    <div>
+      <h2>Strings App</h2>
+      <NavLink exact to="/add">
+        Add String
+      </NavLink>
+      <div>
+        <StringList {...stringsListProps} />
+      </div>
+    </div>
   );
 }
+
+HomePage.propTypes = {
+  loading: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  strings: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+};
+
+const mapStateToProps = createStructuredSelector({
+  strings: makeSelectStrings(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
+});
+
+export function mapDispatchToProps(dispatch) {
+  return dispatch(loadStrings())
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  memo,
+)(HomePage);
