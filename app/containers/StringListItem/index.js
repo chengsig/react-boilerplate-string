@@ -14,7 +14,7 @@ import ListItem from 'components/ListItem';
 
 export function StringListItem(props) {
   const { string } = props;
-
+  console.log('in Stringlist index', props)
   const content = <p>{string.body}</p>;
 
   // Render the content into a list item

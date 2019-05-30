@@ -27,4 +27,8 @@ $ cd react-boilerplate-dmi
 $ cd server
 $ createdb dmi
 $ psql dmi < data.sql
+$ cd ..
+$ npm install
+$ npm start
 ```
+headover to http://localhost:5000
