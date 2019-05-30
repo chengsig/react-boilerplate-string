@@ -27,6 +27,7 @@ import {
  * @return {object} An action object with a type of LOAD_STRINGS
  */
 export function loadStrings() {
+    console.log('got in app actions?')
   return {
     type: LOAD_STRINGS,
   };
@@ -40,6 +41,7 @@ export function loadStrings() {
  * @return {object}      An action object with a type of LOAD_STRINGS_SUCCESS passing the strings
  */
 export function stringsLoaded(strings) {
+    console.log('got in app load success??')
   return {
     type: LOAD_STRINGS_SUCCESS,
     strings,
