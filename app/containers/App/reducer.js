@@ -9,8 +9,8 @@
 
 import produce from 'immer';
 import {
-  LOAD_STRINGS_SUCCESS,
   LOAD_STRINGS,
+  LOAD_STRINGS_SUCCESS,
   LOAD_STRINGS_ERROR,
 } from './constants';
 
@@ -24,6 +24,7 @@ export const initialState = {
 /* eslint-disable default-case, no-param-reassign */
 const appReducer = (state = initialState, action) =>
   produce(state, draft => {
+    console.log('in app reducer')
     switch (action.type) {
       case LOAD_STRINGS:
         draft.loading = true;
@@ -32,6 +33,7 @@ const appReducer = (state = initialState, action) =>
         break;
 
       case LOAD_STRINGS_SUCCESS:
+        console.log('in app reducer success')
         draft.strings = action.strings;
         draft.loading = false;
         break;

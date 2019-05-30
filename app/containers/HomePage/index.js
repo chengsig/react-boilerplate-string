@@ -11,19 +11,23 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import {
-  makeSelectStrings,
   makeSelectLoading,
   makeSelectError,
+  makeSelectStrings,
 } from 'containers/App/selectors';
 import StringList from 'components/StringsList';
 import { loadStrings } from '../App/actions';
 import saga from './saga';
+import reducer from '../App/reducer';
 
 const key = 'home';
 
 export function HomePage({ loading, error, strings }) {
+  console.log('in homepage index', loading, error, strings);
+  useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   const stringsListProps = {
@@ -55,10 +59,10 @@ const mapStateToProps = createStructuredSelector({
   strings: makeSelectStrings(),
   loading: makeSelectLoading(),
   error: makeSelectError(),
+  
 });
 
 export function mapDispatchToProps(dispatch) {
-  console.log('did we get here')
   return dispatch(loadStrings());
 }
 

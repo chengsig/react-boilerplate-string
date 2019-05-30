@@ -6,11 +6,11 @@ import request from 'utils/request';
 
 // strings request/response handler
 export function* getStrings() {
-  const requestURL = 'http://localhost:3000/api/strings';
+  const requestURL = 'http://localhost:5000/api/strings';
   try {
     const strings = yield call(request, requestURL);
-    console.log(strings);
-    yield put(stringsLoaded());
+    console.log('finally got them in saga', strings)
+    yield put(stringsLoaded(strings));
   } catch (err) {
     yield put(stringLoadingError(err));
   }
